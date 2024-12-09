@@ -28,9 +28,10 @@ a:hover {
 
 body {
   margin: 0;
-
+  background-color: #fafbfd;
   min-width: 320px;
   min-height: 100vh;
+  color: black;
 }
 
 h1 {
