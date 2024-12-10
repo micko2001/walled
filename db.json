@@ -1,0 +1,67 @@
+{
+  "posts": [
+    { "id": "1", "title": "a title", "views": 100 },
+    { "id": "2", "title": "another title", "views": 200 }
+  ],
+  "comments": [
+    { "id": "1", "text": "a comment about post 1", "postId": "1" },
+    { "id": "2", "text": "another comment about post 1", "postId": "1" }
+  ],
+  "profile": {
+    "name": "typicode"
+  },
+  "users": [
+    {
+      "name": "Chelsea",
+      "password": "mmmmm",
+      "email": "chelsea@momo.com"
+    },
+    {
+      "name": "micko",
+      "password": "123",
+      "email": "micko@jaya.com",
+      "transactions": [
+        {
+          "id": 1,
+          "date": "2024-01-01T10:00:00Z",
+          "type": "DEBIT",
+          "fromTo": "Alice to Bob",
+          "description": "Payment for services",
+          "amount": 150.0
+        },
+        {
+          "id": 2,
+          "date": "2024-01-05T14:30:00Z",
+          "type": "KREDIT",
+          "fromTo": "Carol to Dave",
+          "description": "Refund for purchase",
+          "amount": -20.0
+        },
+        {
+          "id": 3,
+          "date": "2024-01-10T09:15:00Z",
+          "type": "DEBIT",
+          "fromTo": "Eve to Frank",
+          "description": "Gift",
+          "amount": 75.5
+        },
+        {
+          "id": 4,
+          "date": "2024-01-15T16:45:00Z",
+          "type": "KREDIT",
+          "fromTo": "George to Henry",
+          "description": "Invoice payment",
+          "amount": 200.0
+        },
+        {
+          "id": 5,
+          "date": "2024-01-20T11:20:00Z",
+          "type": "DEBIT",
+          "fromTo": "Irene to Jack",
+          "description": "Donation",
+          "amount": 50.0
+        }
+      ]
+    }
+  ]
+}

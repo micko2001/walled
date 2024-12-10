@@ -12,11 +12,11 @@ const MENU = [
   },
   {
     title: "Topup",
-    link: "#",
+    link: "/topup",
   },
   {
     title: "Sign Out",
-    link: "#",
+    link: "/signout",
   },
 ];
 

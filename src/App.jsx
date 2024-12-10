@@ -1,9 +1,8 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-// import "./App.css";
-import logo from "./logo/wallet.png";
+import { useEffect, useState } from "react";
 
+import Table from "../src/components/Table.jsx";
+import logo from "./logo/wallet.png";
+import { useNavigate } from "react-router";
 import NavItems from "./components/NavItems";
 import fotoProfil from "./assets/avatar.png";
 import viewIcon from "./assets/view.png";
@@ -14,13 +13,30 @@ function App() {
   const [isAvatarActive, setIsAvatarActive] = useState(false);
   const [showBalance, setShowBalance] = useState(true);
 
+  const [username, setUsername] = useState("");
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const loginData = localStorage.getItem("login");
+
+    if (loginData) {
+      // Mengonversi string JSON menjadi objek
+      const parsedData = JSON.parse(loginData);
+      // Mengambil nilai email dari objek
+      const email = parsedData.email; // Mengiris email untuk mendapatkan username sebelum '@'
+      const name = email.substring(0, email.indexOf("@")); // Menyetel username ke state
+      setUsername(name);
+    }
+  }, []);
+
   return (
     <>
       <div className="w-full px-16 mt-12">
         <div className="flex items-center justify-center">
           <div className="mr-auto">
             <h1 className="text-black text-6xl font-bold">
-              Good Morning, Chelsea!
+              {`Good Morning, ${username}`}
             </h1>
             <p className="text-black text-2xl mt-3">
               Check all your incoming and outgoing transactions here
@@ -28,7 +44,7 @@ function App() {
           </div>
           <div className="flex items-center gap-x-4 ml-auto">
             <span className="text-right">
-              <p className="text-black font-bold">Chelsea Immanuela</p>
+              <p className="text-black font-bold">{`${username}`}</p>
               <p className="text-black">Personal Account</p>
             </span>
             <div
@@ -61,6 +77,7 @@ function App() {
             </span>
           </div>
         </div>
+        <Table />
       </div>
     </>
   );
