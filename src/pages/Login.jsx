@@ -19,13 +19,12 @@ function Login() {
     } else {
       const fetchData = async () => {
         try {
-          // console.log("Fetching data....");
           const response = await fetch("http://localhost:3000/users"); // Ganti dengan URL API kamu
           if (!response.ok) {
             throw new Error("Network response was not ok");
           }
           const data = await response.json();
-          // console.log("data fetched succesfully", data);
+
           setData(data);
           setLoading(false);
         } catch (error) {
@@ -57,7 +56,11 @@ function Login() {
       // Jika ditemukan, simpan data ke localStorage dan navigasi ke dashboard
       localStorage.setItem(
         "login",
-        JSON.stringify({ email: user.email, password: user.password })
+        JSON.stringify({
+          email: user.email,
+          password: user.password,
+          id: user.id,
+        })
       );
       navigate("/dashboard");
     } else {

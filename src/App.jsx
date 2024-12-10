@@ -6,16 +6,21 @@ import { useNavigate } from "react-router";
 import NavItems from "./components/NavItems";
 import fotoProfil from "./assets/avatar.png";
 import viewIcon from "./assets/view.png";
-import Navbar from "./components/Navbar.jsx";
+import { useFetch } from "./hooks/useFetch.jsx";
 
 function App() {
   const [activeTab, setActiveTab] = useState("Dashboard");
   const [isAvatarActive, setIsAvatarActive] = useState(false);
   const [showBalance, setShowBalance] = useState(true);
-
   const [username, setUsername] = useState("");
+  const [userId, setUserId] = useState(null);
 
-  const navigate = useNavigate();
+  const formatRupiah = (number) => {
+    return number.toLocaleString("id-ID", {
+      style: "currency",
+      currency: "IDR",
+    });
+  };
 
   useEffect(() => {
     const loginData = localStorage.getItem("login");
@@ -28,8 +33,32 @@ function App() {
       const name = email.substring(0, email.indexOf("@")); // Menyetel username ke state
       setUsername(name);
     }
+    const parsedData = JSON.parse(loginData);
+    const idUser = parsedData.id;
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/users"); // Ganti dengan URL API kamu
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        const foundUser = data.find((user) => user.id == idUser);
+        if (foundUser) {
+          setUserId(foundUser);
+        }
+        setLoading(false);
+      } catch (error) {
+        console.error("fetch error");
+
+        setLoading(false);
+      }
+    };
+    fetchData();
+    console.log(idUser);
   }, []);
 
+  console.log(userId);
   return (
     <>
       <div className="w-full px-16 mt-12">
@@ -66,7 +95,7 @@ function App() {
             <p>Balance</p>
             <span className="flex items-center mt-3 gap-x-2">
               <p className="font-bold">
-                {showBalance ? "Rp10.000.000,00" : "Rp ********"}
+                {showBalance ? "Rp10.0000.000" : "Rp ********"}
               </p>
               <img
                 src={viewIcon}

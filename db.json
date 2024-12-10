@@ -14,52 +14,56 @@
     {
       "name": "Chelsea",
       "password": "mmmmm",
-      "email": "chelsea@momo.com"
+      "email": "chelsea@momo.com",
+      "balance": "10000000",
+      "id": "100044"
     },
     {
       "name": "micko",
       "password": "123",
       "email": "micko@jaya.com",
+      "balance": "15000000",
+      "id": "337711",
       "transactions": [
         {
           "id": 1,
-          "date": "2024-01-01T10:00:00Z",
+          "date": "20:10 - 30 June 2022",
           "type": "DEBIT",
           "fromTo": "Alice to Bob",
           "description": "Payment for services",
-          "amount": 150.0
+          "amount": -75000
         },
         {
           "id": 2,
-          "date": "2024-01-05T14:30:00Z",
+          "date": "19:10 - 30 June 2022",
           "type": "KREDIT",
           "fromTo": "Carol to Dave",
           "description": "Refund for purchase",
-          "amount": -20.0
+          "amount": 1000000
         },
         {
           "id": 3,
-          "date": "2024-01-10T09:15:00Z",
+          "date": "19:10 - 30 June 2022",
           "type": "DEBIT",
           "fromTo": "Eve to Frank",
           "description": "Gift",
-          "amount": 75.5
+          "amount": -200000
         },
         {
           "id": 4,
-          "date": "2024-01-15T16:45:00Z",
+          "date": "19:10 - 30 June 2022",
           "type": "KREDIT",
           "fromTo": "George to Henry",
           "description": "Invoice payment",
-          "amount": 200.0
+          "amount": 800000
         },
         {
           "id": 5,
-          "date": "2024-01-20T11:20:00Z",
+          "date": "19:10 - 30 June 2022",
           "type": "DEBIT",
           "fromTo": "Irene to Jack",
           "description": "Donation",
-          "amount": 50.0
+          "amount": -600000
         }
       ]
     }

@@ -1,84 +1,33 @@
-import { useCallback, useEffect, useState } from "react";
-import config from "../config";
+import { useEffect, useState } from "react";
+
 import { useNavigate } from "react-router-dom";
 
-function toCamelCase(obj) {
-  if (obj === null || typeof obj !== "object") {
-    return obj;
-  }
-
-  if (Array.isArray(obj)) {
-    return obj.map((item) => toCamelCase(item));
-  }
-
-  return Object.keys(obj).reduce((acc, key) => {
-    const camelKey = key.replace(/_([a-z])/g, (_, letter) =>
-      letter.toUpperCase()
-    );
-    acc[camelKey] = toCamelCase(obj[key]);
-    return acc;
-  }, {});
-}
-
-export function useFetch(path, options) {
-  const method = options?.method || "GET";
-  const immediate = method === "GET";
-  const shouldTransform = options?.transformToCamelCase ?? false;
-  const navigate = useNavigate();
-
-  const [data, setData] = useState();
-  const [isLoading, setIsLoading] = useState(immediate);
-  const [error, setError] = useState();
-
-  const fetchData = useCallback(
-    async (body) => {
-      setIsLoading(true);
-      setError(undefined);
-
-      try {
-        const response = await fetch(`${config.API_BASE_URL}${path}`, {
-          method,
-          headers: {
-            ...options?.headers,
-            "Content-Type": "application/json",
-            Authorization: "Bearer tokennya",
-          },
-          body: body
-            ? JSON.stringify(body)
-            : options?.body
-            ? JSON.stringify(options.body)
-            : undefined,
-        });
-
-        if (!response.ok) {
-          if (response.status === 401) {
-            navigate("/login");
-          }
-
-          throw new Error("Failed to fetch data");
-        }
-
-        const rawResult = await response.json();
-        const result = shouldTransform ? toCamelCase(rawResult) : rawResult;
-
-        setData(result);
-
-        return result;
-      } catch (err) {
-        console.error(err);
-        setError(err instanceof Error ? err : new Error("An error occured"));
-      } finally {
-        setIsLoading(false);
-      }
-    },
-    [path, method, shouldTransform, options?.body, options?.headers, navigate]
-  );
+export function useFetch() {
+  const [data, setData] = useState([]);
 
   useEffect(() => {
-    if (immediate) {
+    const Userdata = localStorage.getItem("login");
+    if (Userdata) {
+      navigate("/dashboard");
+    } else {
+      const fetchData = async () => {
+        try {
+          const response = await fetch("http://localhost:3000/users"); // Ganti dengan URL API kamu
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          const data = await response.json();
+
+          setData(data);
+          setLoading(false);
+        } catch (error) {
+          console.error("fetch error");
+          setError(error);
+          setLoading(false);
+        }
+      };
       fetchData();
     }
-  }, [fetchData, immediate]);
-
-  return { data, isLoading, error, fetchData };
+  }, [1]);
+  console.log(data);
 }
