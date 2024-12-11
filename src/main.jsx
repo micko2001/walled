@@ -10,6 +10,7 @@ import DashboardLayout from "./pages/DashboardLayout.jsx";
 import Login from "./pages/Login.jsx";
 import TopUp from "./pages/Topup.jsx";
 import Signout from "./pages/Signout.jsx";
+import Register from "./pages/Register.jsx";
 import { useState } from "react";
 
 createRoot(document.getElementById("root")).render(
@@ -23,6 +24,7 @@ createRoot(document.getElementById("root")).render(
           <Route path="/signout" element={<Signout />} />
         </Route>
         <Route path="/" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         {/* <Route
           path="/"
           element={
