@@ -29,8 +29,6 @@ function Login() {
           setLoading(false);
         } catch (error) {
           console.error("fetch error");
-          setError(error);
-          setLoading(false);
         }
       };
       fetchData();

@@ -16,45 +16,33 @@ function Register() {
   const navigate = useNavigate();
 
   const [submit, setSubmit] = useState(false);
-  const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
 
-  useEffect(() => {
-    if (submit) {
-      const handleSubmit = async (e) => {
-        try {
-          const response = await fetch("http://localhost:8080/users", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(loginForm),
-          });
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      console.log(JSON.stringify(loginForm));
+      const response = await fetch("http://localhost:8080/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(loginForm),
+      });
 
-          if (!response.ok) {
-            throw new Error("Network response was not ok");
-          }
-          const responseData = await response.json();
-          console.log("Success:", responseData);
-          alert("Data submitted successfully!");
-        } catch (error) {
-          console.error("Error:", error);
-          alert("There was an error submitting your data.");
-        }
-      };
-      handleSubmit();
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const responseData = await response.json();
+      alert("Success:", responseData);
+      navigate("/");
+    } catch (error) {
+      console.error("Error:", error);
+      alert(`There was an error submitting your data.${error}`);
     }
-  }, [submit, email, username]);
+  };
 
   const handleChange = (e) => {
     setLoginForm({ ...loginForm, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setSubmit(true);
-    console.log(loginForm);
-    // navigate("/");
   };
 
   return (
